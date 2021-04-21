@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content>
+  <div class="background"></div>
+  <div class="content-stage" *ngIf=currentDay>
+    <div class="at-title">
+      <ion-item color="none" lines="none" style="color: white; --inner-padding-end:0px" (click)="searchCity()">
+        <ion-label>{{currentDay.name}}</ion-label>
+        <ion-icon name="search"></ion-icon>
+      </ion-item>
+      <style>
+        ion-select::part(icon) {
+          display: none !important;
+        }
+      </style>
+    </div>
+    <div class="degree-label">
+      <span style="font-size: 120px; position: relative;left: 25px;">
+        {{(currentDay.main.temp)}}
+        <span style="font-size: 60px;position: relative;right: 25px;top: -40px">
+          &deg;C
+        </span>
+      </span><br>
+      <span>
+        <img src='http://openweathermap.org/img/w/{{currentDay.weather[0].icon}}.png'/>
+      </span><br>
+      <span style="font-size: 20px;">
+        {{currentDay.weather[0].main}}
+      </span>
+    </div>
+    <div class=review-stage>
+      <div><strong>Mô tả thời tiết:</strong> {{currentDay.weather[0].description}}</div>
+      <div><strong>Tốc độ gió:</strong> {{currentDay.wind.speed}} m/s</div>
+      <div><strong>Độ ẩm:</strong> {{currentDay.main.humidity}}%</div>
+      <div><strong>UV: {{oneCallUvi}}</strong> {{uv_notification}}</div>
+      <div><strong>AQI: {{airPol}}</strong> {{airpl_notification}}</div>
+    </div>
+    
+    <!-- Thống kê thời tiết trong 5 ngày tới theo chu kỳ 3 tiếng -->
+    <div style="margin: 0px 10px; padding: 10px; border-radius: 50px; background: rgb(255,255,255,.3); text-align: center; text-align: center; font-weight: bold;font-size: 18px;color: white; margin-bottom: 30px">Thời tiết 5 ngày tới</div>
+    <div class="five-day-box" style="margin: 20px 10px;" *ngIf=fiveDay>
+      <div style="width:100px;text-align: center;margin-right: 5px;" *ngFor="let i of fiveDay.list">
+        <div style="font-weight: bold">{{i.main.re_temp}}&deg;</div>
+        <div><img src="{{i.weather[0].path_icon}}"></div>
+        <div style="font-size: 12px">{{i.date_and_time.time}}</div>
+        <div style="font-size: 14px">{{i.date_and_time.date}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-box">
+    <span id="alert-text">{{uv_notification}}</span>
+    <ion-icon name="close-outline" class="close-button" (click)="closeAlert()"></ion-icon>
+  </div>
+</ion-content>
