@@ -42,12 +42,12 @@ export class WeatherService {
     }
 
     let excludeOption = options.join(',');
-    let path = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${excludeOption}&appid=${this.apikey}&units=metric`;
+    let path = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${excludeOption}&appid=${this.apikey}&units=metric`;
     return this.http.get(path).pipe(map((docs) => docs.json()));
   }
 
   airPl(lat, lon){
-    let path = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${this.apikey}`;
+    let path = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${this.apikey}`;
     return this.http.get(path).pipe(map((docs) => docs.json()));
   }
 }
